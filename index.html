@@ -5,13 +5,29 @@
 		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 		Remove this if you use the .htaccess -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<title>index</title>
+		<title>Multi File Uploader</title>
 		<meta name="description" content="" />
 		<meta name="author" content="Dan" />
 		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		
+		<link type="text/css" href="js/jquery.file_uploader.css" />
+		
+		<script type="text/javascript">
+			
+			var get_url = function()
+			{
+				return "/multiple_fileuploader/";
+			}
+			
+		</script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/exif.js"></script>
+		<script type="text/javascript" src="js/jquery.file_uploader.js"></script>
+		<script type="text/javascript" src="js/test_file_api.js"></script>
+		
 	</head>
 	<body>
 		<div>
@@ -26,7 +42,21 @@
 					<a href="/contact">Contact</a>
 				</p>
 			</nav>
-			<div></div>
+			<div>
+				<form enctype="multipart/form-data" action="upload.php" method="post">
+					<fieldset>
+						<div class="form-row">
+							<label for="file">File(s):</label>
+							<input type="file" clas="multiple" name="file" id="file" />
+						</div>
+						<div class="form-row">
+							<label>&nbsp;</label>
+							<input type="submit" value="Upload" />
+						</div>
+					</fieldset>
+				</form>
+				
+			</div>
 			<footer>
 				<p>
 					&copy; Copyright  by Dan
