@@ -23,10 +23,7 @@ var tfa =function()
 			{
 				for (var i=0; i < uploaded.length; i++) 
 				{
-					
-	
-					all_uploaded = all_uploaded + ',' + resp;
-		
+					all_uploaded = all_uploaded + ',' + uploaded[i];
 				}
 			}
 
@@ -44,7 +41,7 @@ var tfa =function()
 
 			if (is_multiple) 
 			{
-				if ($('#files__added_multiples-' + inp_name).size() > 0) 
+				if ($('#files_added_multiples-' + inp_name).size() > 0) 
 				{	
 					$('#files_added_multiples-' + inp_name).val(all_uploaded);
 				}

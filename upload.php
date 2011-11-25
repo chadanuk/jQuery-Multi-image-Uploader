@@ -1,5 +1,8 @@
 <?php
+
 date_default_timezone_set('Europe/London');
+$basepath = '/multiple_fileuploader/';
+
 class Upload
 {
 	public $res;
@@ -104,12 +107,13 @@ echo $u->res;
 //Get the data from the post array when the form is submitted (eg alongside saving other data in the form)
 if(isset($_POST['file_added']) || isset($_POST['files_added_multiples']))
 {
+	
 	if (isset($_POST['files_added_multiples'])) 
 	{
 	
 		foreach ($_POST['files_added_multiples'] as $field => $files_str) 
 		{
-			
+					
 			$files_arr = explode(',', $files_str);
 			$files_arr = array_unique($files_arr);
 
@@ -119,7 +123,8 @@ if(isset($_POST['file_added']) || isset($_POST['files_added_multiples']))
 				{
 					continue;
 				}
-				// SAVE EACH IMAGE TO FIELD IN DATABASE			
+				// SAVE EACH IMAGE TO FIELD IN DATABASE		
+				echo '<img src="'.$basepath.$file_path.'" height="200"/>';	
 			}
 		}
 	
@@ -135,6 +140,7 @@ if(isset($_POST['file_added']) || isset($_POST['files_added_multiples']))
 				continue;
 			}
 			// SAVE IMAGE TO FIELD
+			echo '<img src="'.$basepath.$value.'" height="200"/>';
 		}
 
 	}
