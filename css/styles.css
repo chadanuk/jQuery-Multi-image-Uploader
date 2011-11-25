@@ -1,0 +1,44 @@
+/* Genereal bits*/
+.clear{
+	clear:both;
+}
+.left{
+	text-align:left;
+}
+.right{
+	text-align:right;
+}
+.center{
+	text-align:center;
+}
+.f-left{
+	float:left;
+}
+.f-right{
+	float:right;
+}
+.strikethrough
+{
+	text-decoration: line-through;
+}
+.no-margin
+{
+	margin:0;
+}
+
+a img {border:none;}
+
+/* This is the clearfix - it makes floated items  wrap correctly */
+.surround:after
+{
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+.surround /*IE7 hack fix */
+{ 
+	*zoom: 1; 
+}

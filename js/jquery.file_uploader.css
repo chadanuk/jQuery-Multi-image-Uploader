@@ -1,11 +1,13 @@
-.droppable-file-box{width:200px;height:40px; margin:10px 0 0; padding:5px; border:1px solid #000; border-radius:3px;-moz-border-radius:3px;}
+/*DROPPABLE FILE CSS*/
+
+.droppable-file-box{width:250px;height:40px; margin:10px 0 0; padding:5px; border:1px solid #000; border-radius:3px;-moz-border-radius:3px;}
 .droppable-file-box p{margin:0;}
 .droppable-file-box.hover{background:#fff; border-color:1px solid red;}
 .droppable-file-box.hover:hover;{background:#fff; border-color:1px solid red;}
 
 .preview-file-box{}
-.preview-file-box li{float:left; margin:10px 10px 0 0;}
-.preview-file-box .upload-pic{max-width:200px;}
+.preview-file-box li{float:left; margin:10px 10px 0 0; list-style:none;}
+.preview-file-box .upload-pic{max-height:200px;}
 
 .fu_progress_bar {
 	width:200px;

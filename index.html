@@ -13,7 +13,8 @@
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		
-		<link type="text/css" href="js/jquery.file_uploader.css" />
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="js/jquery.file_uploader.css" />
 		
 		<script type="text/javascript">
 			
@@ -46,8 +47,13 @@
 				<form enctype="multipart/form-data" action="upload.php" method="post">
 					<fieldset>
 						<div class="form-row">
-							<label for="file">File(s):</label>
-							<input type="file" clas="multiple" name="file" id="file" />
+							<label for="file">File:</label>
+							<input type="file" class="sigular" name="file" id="file" />
+						</div>
+						
+						<div class="form-row">
+							<label for="file">Multiple Files:</label>
+							<input type="file" class="multiple" name="multi_file" id="file" />
 						</div>
 						<div class="form-row">
 							<label>&nbsp;</label>
