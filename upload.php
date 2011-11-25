@@ -90,11 +90,7 @@ class Upload
 		{
 			return $e->getMessage();
 		}
-		
-		
-		
-		
-		
+
 		return str_replace('//', '/', $file_path);
 	
 	}
@@ -126,6 +122,7 @@ if(isset($_POST['file_added']) || isset($_POST['files_added_multiples']))
 				// SAVE EACH IMAGE TO FIELD IN DATABASE		
 				echo '<img src="'.$basepath.$file_path.'" height="200"/>';	
 			}
+			echo '<br /><br />';
 		}
 	
 	}
