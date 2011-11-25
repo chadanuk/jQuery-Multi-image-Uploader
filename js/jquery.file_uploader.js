@@ -29,6 +29,7 @@
 	            //Iterate over the current set of matched elements
 				return this.each(function()
 				{
+					var input = $(this);
 					var files_uploaded = '';
 					var preview;
 					var drop;	
@@ -106,10 +107,10 @@
 								var dataURL = canvas.toDataURL("image/jpeg");      
 								var c = (counter - 1);
 								var im_el = $('li#preview-list-' + c).find('img');
-								var input_name = im_el.attr('rel');
+								var input_name = file_input.attr('name');
 								
 								im_el.wrap($('<a class="preview-image-link" href="' + dataURL + '" target="_blank"></a>'));
-								$.post(o.save_url, { current_url: window.location.href, 'data_url' : dataURL, filename: file.name,'field' : input_name, 'is_multiple': is_multiple }, function(resp)
+								$.post(o.save_url, {'field' : input_name,  current_url: window.location.href, 'data_url' : dataURL, 'filename': file.name, 'is_multiple': is_multiple }, function(resp)
 								{
 									progress.css({width: '100%'});
 									progress.html('100%');

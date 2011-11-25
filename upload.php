@@ -5,9 +5,9 @@ class Upload
 	public $res;
 	function __construct()
 	{
-		if (isset($_GET['current_url'])) 
+		if (isset($_GET['save_data_url_image'])) 
 		{
-			echo "string";
+			
 			$this->res = $this->save_data_url_image();
 			
 			return;
@@ -55,11 +55,13 @@ class Upload
 		$filename = $this->arr_get($_POST, 'filename');				
 		
 		
-		$dir = getcwd().'uploads/'.$field.'/';
+		$dir = getcwd().'/uploads/'.$field.'/';
+		$dir = (stristr($dir, '\\') !== FALSE) ? (str_replace('/', '\\', $dir)) : $dir ;
 		if( ! file_exists($dir))
 		{
 			mkdir($dir, 0777, TRUE);
 		}
+
 		$arr = explode('.', $filename);
 		$file_ext = end($arr);
 		
@@ -77,9 +79,15 @@ class Upload
 		$file_path = 'uploads/'.$field.'/'.$filename;
 		
 		// Save file
-		$fp = fopen($upload_path, 'w');
-		fwrite($fp, $image);
-		fclose($fp);
+		try{
+			$fp = fopen($upload_path, 'w');
+			fwrite($fp, $image);
+			fclose($fp);	
+		} catch (Exception $e)
+		{
+			return $e->getMessage();
+		}
+		
 		
 		
 		

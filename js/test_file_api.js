@@ -10,32 +10,34 @@ var tfa =function()
 		save_url: get_url() + curr, 
 		afterSave: function(uploaded, input, is_multiple)
 		{	
+		
 			var inp_name = input.attr('name');
 			input.val('');			
 			var uploaded = uploaded.split(',');
-			for (var i=0; i < uploaded.length; i++) 
+
+			if (uploaded[1] == '') 
 			{
-				var resp = uploaded[i];
-				var img_url = resp;
-				if (all_uploaded == '') 
+				img_url = uploaded[0];			
+			}
+			else
+			{
+				for (var i=0; i < uploaded.length; i++) 
 				{
-					all_uploaded = resp;
-				}
-				else
-				{
+					
+	
 					all_uploaded = all_uploaded + ',' + resp;
+		
 				}
-			
 			}
 
-			var current_first_image = $('li#item_0 img');
+			var current_first_image = $('img#' + inp_name + '-0');
 			if (current_first_image.size() > 0) 
 			{
 				var current_first_image_src = current_first_image.attr('src');
 				
 				if ( ! is_multiple) 
 				{
-					$('li#item_0 img').attr('src', get_url() +  img_url);
+					$('img#' + inp_name + '-0').attr('src', get_url() +  img_url);
 				};
 
 			};			
@@ -55,9 +57,10 @@ var tfa =function()
 			}
 			else
 			{
-				if ($('#file_added' + inp_name).size() > 0) 
+				console.log(img_url);
+				if ($('#file_added-' + inp_name).size() > 0) 
 				{
-					$('#file_added' + inp_name).val(img_url);
+					$('#file_added-' + inp_name).val(img_url);
 				}
 				else
 				{
