@@ -21,10 +21,12 @@
 					max_width:1000,
 					max_height:false,
 					save_url: 'upload.php',
-					afterSave: function(){}
+                                        makeData: function(){},
+					afterSave: function(){},
+                                        allFilesCompleted: function(){}
 				};
 				var options =  $.extend(defaults, options);
-
+                                var complete = []; 
 				
 	            //Iterate over the current set of matched elements
 				return this.each(function()
@@ -71,7 +73,7 @@
 							progress.html('82%');
 							
 							$(img).attr('src', reader.result);
-
+                                                        
 							// resize  
 							var tempImg = new Image();
 							tempImg.src = reader.result;
@@ -104,22 +106,32 @@
 								progress.css({width: '91%'});
 								progress.html('91%');
 								
-								var dataURL = canvas.toDataURL("image/jpeg");      
+								var dataURL = canvas.toDataURL("image/jpeg");  
+                                                                dataURL=dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+                                                                
 								var c = (counter - 1);
 								var im_el = $('li#preview-list-' + c).find('img');
 								var input_name = file_input.attr('name');
 								
 								im_el.wrap($('<a class="preview-image-link" href="' + dataURL + '" target="_blank"></a>'));
-								$.post(o.save_url, {'field' : input_name,  current_url: window.location.href, 'data_url' : dataURL, 'filename': file.name, 'is_multiple': is_multiple }, function(resp)
+                                                                
+                                                                var data = {'field' : input_name,  current_url: window.location.href, 'data_url' : dataURL, 'filename': file.name, 'is_multiple': is_multiple};
+                                                                
+                                                                var extra_data = o.makeData();
+                                                                $.extend(data,extra_data);
+                                                                
+								$.post(o.save_url, data, function(resp)
 								{
-									progress.css({width: '100%'});
-									progress.html('100%');
-									prog_box.fadeOut('slow', function()
-									{
-										$(this).remove();
-									});			
-									files_uploaded += resp + ',';
-									o.afterSave(files_uploaded, file_input, is_multiple);									
+                                                                    complete[counter - 1] = true;
+                                                                    
+                                                                    progress.css({width: '100%'});
+                                                                    progress.html('100%');
+                                                                    prog_box.fadeOut('slow', function()
+                                                                    {
+                                                                            $(this).remove();
+                                                                    });			
+                                                                    files_uploaded += resp + ',';
+                                                                    o.afterSave(files_uploaded, file_input, is_multiple);								
 								});
 
 							}
@@ -162,10 +174,11 @@
 
 					
 					
-					
+					var stop_at = 0;
+                                        
 					var make_file_previews = function(files, file_input)
 					{
-						var stop_at = files.length;
+						stop_at = files.length;
 						if ( ! is_multiple) 
 						{
 							stop_at = 1;
@@ -174,7 +187,7 @@
 						var $li = $('<li class="upload_li"></li>');
 						var $img = $('<img src="" class="upload-pic" title="" rel="' + file_input.attr('name') + '" alt="" />');
 						
-						 
+						
 						for (var i = 0; i < stop_at; i++) 
 						{
 							(function (i) 
@@ -185,7 +198,11 @@
 								var progress_box = $('<div class="fu_progress_bar"><div class="percent">0%</div></div>');
 								progress_box.insertAfter(file_input);	
 								var progress = progress_box.find('div.percent');
-							 
+                                                                
+                                                                if(i >= complete.length)
+                                                                {
+                                                                    complete.push(false);
+                                                                }
 								handle_file(files[i], i, progress);
 							
 								reader.onerror = errorHandler;
@@ -240,11 +257,25 @@
 								};
 								reader.readAsDataURL(files[i]);
 							})(i);
-						};		
-					};
+						};
+
+                                            var comp_i = setInterval(function(){
+                                                if(complete[stop_at - 1])
+                                                {
+                                                    o.allFilesCompleted();
+                                                    clearInterval(comp_i);
+                                                }
+                                            }, 100);
+                                        };
+                                        
 				
 					var file_input = $(this);
 					is_multiple = file_input.hasClass('multiple');
+                                        if (file_input.attr('multiple') !== 'multiple') 
+                                        {
+                                            file_input.attr('multiple', 'multiple');
+                                        }
+                                        
 					preview = $('<ul class="surround preview-file-box" id="pfb-' + file_input.attr('name') + '"></ul>');
 					preview.insertAfter(file_input);
 
